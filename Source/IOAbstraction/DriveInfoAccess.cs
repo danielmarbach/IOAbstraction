@@ -65,6 +65,48 @@ namespace IOAbstraction
         }
 
         /// <summary>
+        /// Gets the name of the file system, such as NTFS or FAT32.
+        /// </summary>
+        /// <value>Provides access to information on a drive.</value>
+        public string DriveFormat
+        {
+            get { return this.driveInfo.DriveFormat; }
+        }
+
+        /// <summary>
+        /// Gets the drive type.
+        /// </summary>
+        /// <value>One of the <see cref="DriveType"/> values.</value>
+        public DriveType DriveType
+        {
+            get { return this.driveInfo.DriveType; }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether a drive is ready.
+        /// </summary>
+        /// <value>
+        /// <see langword="true"/> if the drive is ready;
+        /// <see langword="false"/> if the drive is not ready.
+        /// </value>
+        public bool IsReady
+        {
+            get { return this.driveInfo.IsReady; }
+        }
+
+        /// <summary>
+        /// Gets the root directory of a drive.
+        /// </summary>
+        /// <value>
+        /// An <see cref="IDirectoryInfoAccess"/> object that contains the
+        /// root directory of the drive.
+        /// </value>
+        public IDirectoryInfoAccess RootDirectory
+        {
+            get { return new DirectoryInfoAccess(this.driveInfo.RootDirectory); }
+        }
+
+        /// <summary>
         /// Gets the total amount of free space available on a drive.
         /// </summary>
         /// <value>The total free space available on a drive, in bytes.</value>

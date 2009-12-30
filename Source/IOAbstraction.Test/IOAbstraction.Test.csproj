@@ -50,8 +50,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DirectoryAccessTest.cs" />
+    <Compile Include="DriveInfoAccessTest.cs" />
     <Compile Include="FileAccessTest.cs" />
     <Compile Include="Fixtures\DirectoryAccessFixture.cs" />
+    <Compile Include="Fixtures\DriveAccessFixture.cs" />
     <Compile Include="Fixtures\FileAccessFixture.cs" />
     <Compile Include="PathAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
