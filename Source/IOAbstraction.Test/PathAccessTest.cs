@@ -18,6 +18,7 @@
 
 namespace IOAbstraction.Test
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using Fixtures;
@@ -112,7 +113,47 @@ namespace IOAbstraction.Test
             Assert.Equal(Path.GetFileNameWithoutExtension(existingFileName), testee.GetFileNameWithoutExtension(existingFileName));
         }
 
-        // TODO: Combine, GetRandomFileName
+        /// <summary>
+        /// The combination of two paths must be successful and return the same
+        /// result as <see cref="Path.Combine"/>.
+        /// </summary>
+        [Fact]
+        public void WithDirectoryAndFile_Combine_MustCombinePaths()
+        {
+            var testee = CreateTestee();
+
+            string fakeFileName = "file.txt";
+            string fakeDirectory = "directory";
+
+            Assert.Equal(Path.Combine(fakeDirectory, fakeFileName), testee.Combine(fakeDirectory, fakeFileName));
+        }
+
+        /// <summary>
+        /// Every time when <see cref="PathAccess.GetRandomFileName"/> is called
+        /// a new random file name must be returned.
+        /// </summary>
+        /// <remarks>This test is a bit naive. But had no better idea how to
+        /// test it.</remarks>
+        [Fact]
+        public void GetRandomFileName_MustReturnNewRandomFileName()
+        {
+            const int NumberOfRandomFiles = 10;
+
+            var testee = CreateTestee();
+
+            ICollection<string> randomFileNames = new List<string>();
+
+            for (int i = 0; i < NumberOfRandomFiles; i++)
+            {
+                randomFileNames.Add(testee.GetRandomFileName());
+            }
+
+            IEnumerable<string> distinctFileNames = randomFileNames.Distinct();
+
+            Assert.Equal(NumberOfRandomFiles, distinctFileNames.Count());
+            distinctFileNames.ToList()
+                .ForEach(fileName => Assert.True(Path.HasExtension(fileName)));
+        }
 
         /// <summary>
         /// Creates the <see cref="PathAccess"/>.
