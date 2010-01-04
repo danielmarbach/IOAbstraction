@@ -19,6 +19,7 @@
 namespace IOAbstraction.Test
 {
     using Fixtures;
+    using Interfaces;
     using Xunit;
 
     /// <summary>

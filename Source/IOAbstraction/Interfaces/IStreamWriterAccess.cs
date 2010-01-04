@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------
-// <copyright file="StreamWriterAccess.cs" company="Daniel Marbach">
+// <copyright file="IStreamWriterAccess.cs" company="Daniel Marbach">
 //   Copyright (c) 2009 Daniel Marbach
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,30 +16,15 @@
 // </copyright>
 //-------------------------------------------------------------------------------
 
-namespace IOAbstraction
+namespace IOAbstraction.Interfaces
 {
     using System.IO;
-    using Interfaces;
 
     /// <summary>
-    /// <see cref="StreamWriter"/> decorator.
+    /// Interface for stream writers.
     /// </summary>
-    public class StreamWriterAccess : TextWriterAccess, IStreamWriterAccess
+    public interface IStreamWriterAccess : ITextWriterAccess
     {
-        /// <summary>
-        /// Holds the decorated <see cref="StreamWriter"/>
-        /// </summary>
-        private readonly StreamWriter decoratedStreamWriter;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StreamWriterAccess"/> class.
-        /// </summary>
-        /// <param name="streamWriter">The stream writer.</param>
-        public StreamWriterAccess(StreamWriter streamWriter) : base(streamWriter)
-        {
-            this.decoratedStreamWriter = streamWriter;
-        }
-
         /// <summary>
         /// Gets or sets a value indicating whether the 
         /// <see cref="System.IO.StreamWriter"/>will flush its buffer to the
@@ -49,29 +34,12 @@ namespace IOAbstraction
         /// <value><see langword="true"/> to force 
         /// <see cref="System.IO.StreamWriter"/> to flush its buffer; otherwise,
         /// <see langword="false"/>.</value>
-        public bool AutoFlush
-        {
-            get
-            {
-                return this.decoratedStreamWriter.AutoFlush;
-            }
-
-            set
-            {
-                this.decoratedStreamWriter.AutoFlush = value;
-            }
-        }
+        bool AutoFlush { get; set; }
 
         /// <summary>
         /// Gets the underlying stream that interfaces with a backing store.
         /// </summary>
-        /// <value>The stream this <see cref="StreamWriter"/> is writing to.</value>
-        public Stream BaseStream
-        {
-            get
-            {
-                return this.decoratedStreamWriter.BaseStream;
-            }
-        }
+        /// <value>The stream this StreamWriter is writing to.</value>
+        Stream BaseStream { get; }
     }
 }

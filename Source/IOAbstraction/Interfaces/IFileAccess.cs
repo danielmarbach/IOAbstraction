@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------
-// <copyright file="FileAccess.cs" company="Daniel Marbach">
+// <copyright file="IFileAccess.cs" company="Daniel Marbach">
 //   Copyright (c) 2009 Daniel Marbach
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,28 +16,19 @@
 // </copyright>
 //-------------------------------------------------------------------------------
 
-namespace IOAbstraction
+namespace IOAbstraction.Interfaces
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.IO;
-    using System.Reflection;
     using System.Security;
     using System.Text;
-    using Interfaces;
-    using log4net;
 
     /// <summary>
-    /// Wrapper class which simplifies the access to the file layer.
+    /// Interface which simplifies the access to the file system.
     /// </summary>
-    public class FileAccess : IFileAccess
+    public interface IFileAccess
     {
-        /// <summary>
-        /// The logger of this class
-        /// </summary>
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
         /// <summary>
         /// Deletes the specified file. An exception is not thrown if the specified file
         /// does not exist.
@@ -60,11 +51,7 @@ namespace IOAbstraction
         /// required permission.  -or- path is a directory.  -or- path specified a
         /// read-only file.
         /// </exception>
-        public void Delete(string path)
-        {
-            Log.DebugFormat(CultureInfo.InvariantCulture, "Deleting file {0}", path);
-            File.Delete(path);
-        }
+        void Delete(string path);
 
         /// <summary>
         /// Creates or opens a file for writing UTF-8 encoded text.
@@ -79,11 +66,7 @@ namespace IOAbstraction
         /// <exception cref="System.IO.PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters.</exception>
         /// <exception cref="System.IO.DirectoryNotFoundException">The specified path is invalid (for example, it is on an unmapped drive).</exception>
         /// <exception cref="System.NotSupportedException">path is in an invalid format.</exception>
-        public IStreamWriterAccess CreateText(string path)
-        {
-            Log.DebugFormat(CultureInfo.InvariantCulture, "Creating file {0}", path);
-            return new StreamWriterAccess(File.CreateText(path));
-        }
+        IStreamWriterAccess CreateText(string path);
 
         /// <summary>
         /// Gets the <see cref="FileAttributes"/> of the file on the path.
@@ -103,11 +86,7 @@ namespace IOAbstraction
         /// <exception cref="DirectoryNotFoundException">path represents a directory and is
         /// invalid, such as being on an unmapped drive, or the directory cannot be found.
         /// </exception>
-        public FileAttributes GetAttributes(string path)
-        {
-            Log.DebugFormat(CultureInfo.InvariantCulture, "Getting attributes on file {0}.", path);
-            return File.GetAttributes(path);
-        }
+        FileAttributes GetAttributes(string path);
 
         /// <summary>
         /// Sets the date and time that the specified file was last written to.
@@ -134,11 +113,7 @@ namespace IOAbstraction
         /// the required permission.</exception>
         /// <exception cref="System.NotSupportedException">path is in an invalid format.
         /// </exception>
-        public void SetLastWriteTime(string path, DateTime lastWriteTime)
-        {
-            Log.DebugFormat(CultureInfo.InvariantCulture, "Setting last write time of {0} to {1}", path, lastWriteTime);
-            File.SetLastWriteTime(path, lastWriteTime);
-        }
+        void SetLastWriteTime(string path, DateTime lastWriteTime);
 
         /// <summary>
         /// Sets the specified <see cref="FileAttributes"/> of the file on the specified
@@ -162,11 +137,7 @@ namespace IOAbstraction
         /// read-only. -or- This operation is not supported on the current platform.  -or-
         /// path specified a directory. -or- The caller does not have the required
         /// permission.</exception>
-        public void SetAttributes(string path, FileAttributes fileAttributes)
-        {
-            Log.DebugFormat(CultureInfo.InvariantCulture, "Setting attributes {0} on file {1}.", fileAttributes, path);
-            File.SetAttributes(path, fileAttributes);
-        }
+        void SetAttributes(string path, FileAttributes fileAttributes);
 
         /// <summary>
         /// Determines whether the specified file exists.
@@ -177,11 +148,7 @@ namespace IOAbstraction
         /// path is null, an invalid path, or a zero-length string. If the caller does not
         /// have sufficient permissions to read the specified file, no exception is thrown
         /// and the method returns false regardless of the existence of path.</returns>
-        public bool Exists(string path)
-        {
-            Log.DebugFormat(CultureInfo.InvariantCulture, "Checking if file {0} exists.", path);
-            return File.Exists(path);
-        }
+        bool Exists(string path);
 
         /// <summary>
         /// Opens a binary file, reads the contents of the file into a byte array, and then
@@ -209,11 +176,7 @@ namespace IOAbstraction
         /// <exception cref="NotSupportedException"> path is in an invalid format.
         /// </exception>
         /// <exception cref="SecurityException">The caller does not have the required permission.</exception>
-        public IEnumerable<byte> ReadAllBytes(string path)
-        {
-            Log.DebugFormat(CultureInfo.InvariantCulture, "Reading bytes of file {0}.", path);
-            return File.ReadAllBytes(path);
-        }
+        IEnumerable<byte> ReadAllBytes(string path);
 
         /// <summary>
         /// Opens a file, reads all lines of the file with the specified encoding, and then closes the file.
@@ -241,11 +204,7 @@ namespace IOAbstraction
         /// <exception cref="NotSupportedException"> path is in an invalid format.
         /// </exception>
         /// <exception cref="SecurityException">The caller does not have the required permission.</exception>
-        public IEnumerable<string> ReadAllLines(string path, Encoding encoding)
-        {
-            Log.DebugFormat(CultureInfo.InvariantCulture, "Reading all lines of file {0} with encoding {1}.", path, encoding);
-            return File.ReadAllLines(path, encoding);
-        }
+        IEnumerable<string> ReadAllLines(string path, Encoding encoding);
 
         /// <summary>
         /// Opens a text file, reads all lines of the file, and then closes the file.
@@ -272,11 +231,7 @@ namespace IOAbstraction
         /// <exception cref="NotSupportedException"> path is in an invalid format.
         /// </exception>
         /// <exception cref="SecurityException">The caller does not have the required permission.</exception>
-        public IEnumerable<string> ReadAllLines(string path)
-        {
-            Log.DebugFormat(CultureInfo.InvariantCulture, "Reading all lines of file {0}.", path);
-            return File.ReadAllLines(path);
-        }
+        IEnumerable<string> ReadAllLines(string path);
 
         /// <summary>
         /// Opens a file, reads all lines of the file with the specified encoding, and then closes the file.
@@ -304,11 +259,7 @@ namespace IOAbstraction
         /// <exception cref="NotSupportedException"> path is in an invalid format.
         /// </exception>
         /// <exception cref="SecurityException">The caller does not have the required permission.</exception>
-        public string ReadAllText(string path, Encoding encoding)
-        {
-            Log.DebugFormat(CultureInfo.InvariantCulture, "Reading all text of file {0} with encoding {1}.", path, encoding);
-            return File.ReadAllText(path, encoding);
-        }
+        string ReadAllText(string path, Encoding encoding);
 
         /// <summary>
         /// Opens a file, reads all lines of the file with the specified encoding, and then closes the file.
@@ -335,10 +286,6 @@ namespace IOAbstraction
         /// <exception cref="NotSupportedException"> path is in an invalid format.
         /// </exception>
         /// <exception cref="SecurityException">The caller does not have the required permission.</exception>
-        public string ReadAllText(string path)
-        {
-            Log.DebugFormat(CultureInfo.InvariantCulture, "Reading all text of file {0}.", path);
-            return File.ReadAllText(path);
-        }
+        string ReadAllText(string path);
     }
 }

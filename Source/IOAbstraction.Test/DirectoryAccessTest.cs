@@ -20,6 +20,7 @@ namespace IOAbstraction.Test
 {
     using System.IO;
     using Fixtures;
+    using Interfaces;
     using Xunit;
 
     /// <summary>

@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------
-// <copyright file="PathAccess.cs" company="Daniel Marbach">
+// <copyright file="IPathAccess.cs" company="Daniel Marbach">
 //   Copyright (c) 2009 Daniel Marbach
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,25 +16,17 @@
 // </copyright>
 //-------------------------------------------------------------------------------
 
-namespace IOAbstraction
+namespace IOAbstraction.Interfaces
 {
     using System;
-    using System.Globalization;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
-    using System.Reflection;
-    using Interfaces;
-    using log4net;
 
     /// <summary>
-    /// Wrapper class which simplifies access to paths.
+    /// Abstraction layer which simplifies access to paths.
     /// </summary>
-    public class PathAccess : IPathAccess
+    public interface IPathAccess
     {
-        /// <summary>
-        /// The logger of this class
-        /// </summary>
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
         /// <summary>
         /// Returns the directory information for the specified path string..
         /// </summary>
@@ -45,11 +37,7 @@ namespace IOAbstraction
         /// <exception cref="ArgumentException">The path parameter contains invalid
         /// characters, is empty, or contains only white spaces.</exception>
         /// <exception cref="PathTooLongException">The path parameter is longer than the system-defined maximum length.</exception>
-        public string GetDirectoryName(string path)
-        {
-            Log.DebugFormat(CultureInfo.InvariantCulture, "Getting directory name of {0}.", path);
-            return Path.GetDirectoryName(path);
-        }
+        string GetDirectoryName(string path);
 
         /// <summary>
         /// Returns the file name and extension of the specified path string.
@@ -61,23 +49,15 @@ namespace IOAbstraction
         /// separator character, this method returns System.String.Empty. If path is null,
         /// this method returns null.</returns>
         /// <exception cref="ArgumentException"><paramref name="path"/> contains one or more of the invalid characters defined in System.IO.Path.GetInvalidPathChars().</exception>
-        public string GetFileName(string path)
-        {
-            Log.DebugFormat(CultureInfo.InvariantCulture, "Getting file name and extension of {0}.", path);
-            return Path.GetFileName(path);
-        }
+        string GetFileName(string path);
 
         /// <summary>
         /// Returns the file name of the specified path string without the extension.
         /// </summary>
         /// <param name="path">The path of the file.</param>
-        /// <returns>A System.String containing the string returned by <see cref="IPathAccess.GetFileName"/>, minus the last period (.) and all characters following it.</returns>
+        /// <returns>A System.String containing the string returned by <see cref="GetFileName"/>, minus the last period (.) and all characters following it.</returns>
         /// <exception cref="ArgumentException"><paramref name="path"/> contains one or more of the invalid characters defined in System.IO.Path.GetInvalidPathChars().</exception>
-        public string GetFileNameWithoutExtension(string path)
-        {
-            Log.DebugFormat(CultureInfo.InvariantCulture, "Getting file name without extension of {0}.", path);
-            return Path.GetFileNameWithoutExtension(path);
-        }
+        string GetFileNameWithoutExtension(string path);
 
         /// <summary>
         /// Combines two path strings.
@@ -89,20 +69,13 @@ namespace IOAbstraction
         /// an absolute path, this method returns <paramref name="path2"/>.</returns>
         /// <exception cref="ArgumentException"><paramref name="path1"/> or <paramref name="path2"/> contain one or more of the invalid characters defined in System.IO.Path.GetInvalidPathChars().</exception>
         /// <exception cref="ArgumentNullException"><paramref name="path1"/> or <paramref name="path2"/> is null.</exception>
-        public string Combine(string path1, string path2)
-        {
-            Log.DebugFormat(CultureInfo.InvariantCulture, "Combining {0} with {1}.", path1, path2);
-            return Path.Combine(path1, path2);
-        }
+        string Combine(string path1, string path2);
 
         /// <summary>
         /// Returns a random folder name or file name.
         /// </summary>
         /// <returns>A random folder name or file name.</returns>
-        public string GetRandomFileName()
-        {
-            Log.Debug("Getting random file name.");
-            return Path.GetRandomFileName();
-        }
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Must have same interface like Path.GetRandomFileName")]
+        string GetRandomFileName();
     }
 }

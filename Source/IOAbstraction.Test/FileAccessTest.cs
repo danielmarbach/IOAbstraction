@@ -21,6 +21,7 @@ namespace IOAbstraction.Test
     using System.IO;
     using System.Linq;
     using Fixtures;
+    using Interfaces;
     using Xunit;
     using FileAccess = FileAccess;
 
