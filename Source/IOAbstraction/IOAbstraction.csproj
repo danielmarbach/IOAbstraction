@@ -67,8 +67,10 @@
     <Compile Include="Interfaces\IStreamWriterAccess.cs" />
     <Compile Include="Interfaces\ITextReaderAccess.cs" />
     <Compile Include="Interfaces\ITextWriterAccess.cs" />
+    <Compile Include="Interfaces\IStreamReaderAccess.cs" />
     <Compile Include="PathAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StreamReaderAccess.cs" />
     <Compile Include="StreamWriterAccess.cs" />
     <Compile Include="TextReaderAccess.cs" />
     <Compile Include="TextWriterAccess.cs" />
