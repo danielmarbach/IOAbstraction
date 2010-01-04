@@ -25,7 +25,7 @@ namespace IOAbstraction
     /// <summary>
     /// <see cref="TextReader"/> decorator.
     /// </summary>
-    public class TextReaderAccess : TextReader, ITextReaderAccess
+    public abstract class TextReaderAccess : TextReader, ITextReaderAccess
     {
         /// <summary>
         /// Holds the decorated <see cref="TextReader"/>.
