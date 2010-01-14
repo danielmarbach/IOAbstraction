@@ -25,6 +25,7 @@ namespace IOAbstraction
     using System.Reflection;
     using System.Security;
     using System.Text;
+    using Interfaces;
     using log4net;
 
     /// <summary>

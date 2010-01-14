@@ -23,6 +23,7 @@ namespace IOAbstraction
     using System.Runtime.Serialization;
     using System.Security;
     using System.Security.Permissions;
+    using Interfaces;
 
     /// <summary>
     /// Abstract file system info access base class.

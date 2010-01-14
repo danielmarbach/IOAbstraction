@@ -23,6 +23,7 @@ namespace IOAbstraction
     using System.Runtime.Serialization;
     using System.Security;
     using System.Security.Permissions;
+    using Interfaces;
 
     /// <summary>
     /// Wrapper class which simplifies the access to file information.

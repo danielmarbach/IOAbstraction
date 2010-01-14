@@ -21,6 +21,7 @@ namespace IOAbstraction
     using System;
     using System.IO;
     using System.Security;
+    using Interfaces;
 
     /// <summary>
     /// The IO access factory which implements <see cref="IIOAccessFactory"/>.

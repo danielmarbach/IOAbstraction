@@ -23,6 +23,7 @@ namespace IOAbstraction
     using System.IO;
     using System.Security.Permissions;
     using System.Text;
+    using Interfaces;
 
     /// <summary>
     /// <see cref="TextWriter"/> decorator.
@@ -609,6 +610,17 @@ namespace IOAbstraction
         public override object InitializeLifetimeService()
         {
             return this.decoratedTextWriter.InitializeLifetimeService();
+        }
+
+        /// <summary>
+        /// Releases the unmanaged resources used by the <see cref="T:System.IO.TextWriter"/> and optionally releases the managed resources.
+        /// </summary>
+        /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            this.decoratedTextWriter.Dispose();
         }
     }
 }

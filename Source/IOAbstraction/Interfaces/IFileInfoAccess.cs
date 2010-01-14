@@ -16,7 +16,7 @@
 // </copyright>
 //-------------------------------------------------------------------------------
 
-namespace IOAbstraction
+namespace IOAbstraction.Interfaces
 {
     using System;
     using System.IO;

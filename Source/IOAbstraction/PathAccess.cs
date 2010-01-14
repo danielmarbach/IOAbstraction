@@ -22,6 +22,7 @@ namespace IOAbstraction
     using System.Globalization;
     using System.IO;
     using System.Reflection;
+    using Interfaces;
     using log4net;
 
     /// <summary>

@@ -19,6 +19,7 @@
 namespace IOAbstraction
 {
     using System.IO;
+    using Interfaces;
 
     /// <summary>
     /// <see cref="StreamWriter"/> decorator.

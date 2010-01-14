@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C15A10A0-9766-4AD7-BD35-C8A483C23CAD}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -55,20 +55,24 @@
     <Compile Include="FileAccess.cs" />
     <Compile Include="FileInfoAccess.cs" />
     <Compile Include="FileSystemInfoAccess.cs" />
-    <Compile Include="IDirectoryAccess.cs" />
-    <Compile Include="IDirectoryInfoAccess.cs" />
-    <Compile Include="IDriveInfoAccess.cs" />
-    <Compile Include="IFileAccess.cs" />
-    <Compile Include="IFileInfoAccess.cs" />
-    <Compile Include="IFileSystemInfoAccess.cs" />
-    <Compile Include="IIOAccessFactory.cs" />
+    <Compile Include="Interfaces\IDirectoryAccess.cs" />
+    <Compile Include="Interfaces\IDirectoryInfoAccess.cs" />
+    <Compile Include="Interfaces\IDriveInfoAccess.cs" />
+    <Compile Include="Interfaces\IFileAccess.cs" />
+    <Compile Include="Interfaces\IFileInfoAccess.cs" />
+    <Compile Include="Interfaces\IFileSystemInfoAccess.cs" />
+    <Compile Include="Interfaces\IIOAccessFactory.cs" />
     <Compile Include="IOAccessFactory.cs" />
-    <Compile Include="IPathAccess.cs" />
-    <Compile Include="IStreamWriterAccess.cs" />
-    <Compile Include="ITextWriterAccess.cs" />
+    <Compile Include="Interfaces\IPathAccess.cs" />
+    <Compile Include="Interfaces\IStreamWriterAccess.cs" />
+    <Compile Include="Interfaces\ITextReaderAccess.cs" />
+    <Compile Include="Interfaces\ITextWriterAccess.cs" />
+    <Compile Include="Interfaces\IStreamReaderAccess.cs" />
     <Compile Include="PathAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StreamReaderAccess.cs" />
     <Compile Include="StreamWriterAccess.cs" />
+    <Compile Include="TextReaderAccess.cs" />
     <Compile Include="TextWriterAccess.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

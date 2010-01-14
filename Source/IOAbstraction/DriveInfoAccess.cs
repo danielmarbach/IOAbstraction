@@ -24,6 +24,7 @@ namespace IOAbstraction
     using System.Linq;
     using System.Runtime.Serialization;
     using System.Security.Permissions;
+    using Interfaces;
 
     /// <summary>
     /// Wrapper class which simplifies the access to drive information.
