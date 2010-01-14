@@ -48,24 +48,41 @@ namespace IOAbstraction.Test.Bases
         /// <value>The testee.</value>
         protected TTestee Testee { get; set; }
 
+        /// <summary>
+        /// When the encoding is requested the encoding must represent the
+        /// encoding of the underlying text writer.
+        /// </summary>
         [Fact]
         public void Encoding_MustRepresentEncodingFromUnderlyingTextWriter()
         {
             Assert.Equal(this.Writer.Encoding, this.Testee.Encoding);
         }
 
+        /// <summary>
+        /// When the format provider is requested the format provider must
+        /// represent the format provider of the underlying text writer.
+        /// </summary>
         [Fact]
         public void FormatProvider_MustRepresentFormatProviderFromUnderlyingTextWriter()
         {
             Assert.Equal(this.Writer.FormatProvider, this.Testee.FormatProvider);
         }
 
+        /// <summary>
+        /// When the new line property is requested the new line property must
+        /// represent the new line property of the underlying text writer.
+        /// </summary>
         [Fact]
         public void WhenDefault_NewLine_MustReturnNewLineFromUnderlyingTextWriter()
         {
             Assert.Equal(this.Writer.NewLine, this.Testee.NewLine);
         }
 
+        /// <summary>
+        /// When the new line property is assigned and then requested the new
+        /// line property must represent the new line property of the underlying
+        /// text writer.
+        /// </summary>
         [Fact]
         public void WhenAssigned_NewLine_MustReturnNewLineFromUnderlyingTextWriter()
         {
@@ -76,6 +93,10 @@ namespace IOAbstraction.Test.Bases
             Assert.Equal(this.Writer.NewLine, this.Testee.NewLine);
         }
 
+        /// <summary>
+        /// When a boolean is written the write method must write the value to
+        /// the underlying stream via the decorated text writer.
+        /// </summary>
         [Fact]
         public void WhenABooleanIsWritten_Write_MustWriteItViaUnderlyingTextWriterToStream()
         {
@@ -84,6 +105,10 @@ namespace IOAbstraction.Test.Bases
             Assert.Equal(4, this.TestDataStream.Length);
         }
 
+        /// <summary>
+        /// When a char is written the write method must write the value to
+        /// the underlying stream via the decorated text writer.
+        /// </summary>
         [Fact]
         public void WhenACharIsWritten_Write_MustWriteItViaUnderlyingTextWriterToStream()
         {
@@ -92,6 +117,10 @@ namespace IOAbstraction.Test.Bases
             Assert.Equal(1, this.TestDataStream.Length);
         }
 
+        /// <summary>
+        /// When a char buffer is written the write method must write the value to
+        /// the underlying stream via the decorated text writer.
+        /// </summary>
         [Fact]
         public void WhenACharBufferIsWritten_Write_MustWriteItViaUnderlyingTextWriterToStream()
         {
@@ -100,6 +129,11 @@ namespace IOAbstraction.Test.Bases
             Assert.Equal(2, this.TestDataStream.Length);
         }
 
+        /// <summary>
+        /// When a sub array of char buffer is written the write method must
+        /// write the value to the underlying stream via the decorated text
+        /// writer.
+        /// </summary>
         [Fact]
         public void WhenASubArrayOfCharBufferIsWritten_Write_MustWriteItViaUnderlyingTextWriterToStream()
         {
@@ -108,6 +142,10 @@ namespace IOAbstraction.Test.Bases
             Assert.Equal(2, this.TestDataStream.Length);
         }
 
+        /// <summary>
+        /// When a decimal is written the write method must write the value to
+        /// the underlying stream via the decorated text writer.
+        /// </summary>
         [Fact]
         public void WhenADecimalIsWritten_Write_MustWriteItViaUnderlyingTextWriterToStream()
         {
@@ -116,6 +154,10 @@ namespace IOAbstraction.Test.Bases
             Assert.Equal(1, this.TestDataStream.Length);
         }
 
+        /// <summary>
+        /// When a double is written the write method must write the value to
+        /// the underlying stream via the decorated text writer.
+        /// </summary>
         [Fact]
         public void WhenADoubleIsWritten_Write_MustWriteItViaUnderlyingTextWriterToStream()
         {
@@ -124,6 +166,10 @@ namespace IOAbstraction.Test.Bases
             Assert.Equal(21, this.TestDataStream.Length);
         }
 
+        /// <summary>
+        /// When a float is written the write method must write the value to
+        /// the underlying stream via the decorated text writer.
+        /// </summary>
         [Fact]
         public void WhenAFloatIsWritten_Write_MustWriteItViaUnderlyingTextWriterToStream()
         {
@@ -132,14 +178,22 @@ namespace IOAbstraction.Test.Bases
             Assert.Equal(12, this.TestDataStream.Length);
         }
 
+        /// <summary>
+        /// When an int is written the write method must write the value to
+        /// the underlying stream via the decorated text writer.
+        /// </summary>
         [Fact]
-        public void WhenAIntIsWritten_Write_MustWriteItViaUnderlyingTextWriterToStream()
+        public void WhenAnIntIsWritten_Write_MustWriteItViaUnderlyingTextWriterToStream()
         {
             this.Testee.AutoFlush(self => self.Write(int.MaxValue));
 
             Assert.Equal(10, this.TestDataStream.Length);
         }
 
+        /// <summary>
+        /// When a long is written the write method must write the value to
+        /// the underlying stream via the decorated text writer.
+        /// </summary>
         [Fact]
         public void WhenALongIntIsWritten_Write_MustWriteItViaUnderlyingTextWriterToStream()
         {
@@ -148,8 +202,12 @@ namespace IOAbstraction.Test.Bases
             Assert.Equal(19, this.TestDataStream.Length);
         }
 
+        /// <summary>
+        /// When an object is written the write method must write the value to
+        /// the underlying stream via the decorated text writer.
+        /// </summary>
         [Fact]
-        public void WhenObjectIsWritten_Wirte_MustWriteItViaUnderlyingTextWriterToStream()
+        public void WhenAnObjectIsWritten_Wirte_MustWriteItViaUnderlyingTextWriterToStream()
         {
             this.Testee.AutoFlush(self => self.Write(new object()));
 
