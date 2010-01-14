@@ -21,14 +21,31 @@ namespace IOAbstraction.Test.Bases
     using System.IO;
     using Xunit;
 
+    /// <summary>
+    /// Serves as base class for all TextWriterAccessTests.
+    /// </summary>
+    /// <typeparam name="TWriter">The type of the writer.</typeparam>
+    /// <typeparam name="TTestee">The type of the testee.</typeparam>
     public abstract class TextWriterAccessTest<TWriter, TTestee>
         where TWriter : TextWriter
         where TTestee : TextWriterAccess
     {
+        /// <summary>
+        /// Gets or sets the test data stream.
+        /// </summary>
+        /// <value>The test data stream.</value>
         protected Stream TestDataStream { get; set; }
 
+        /// <summary>
+        /// Gets or sets the writer.
+        /// </summary>
+        /// <value>The writer.</value>
         protected TWriter Writer { get; set; }
 
+        /// <summary>
+        /// Gets or sets the testee.
+        /// </summary>
+        /// <value>The testee.</value>
         protected TTestee Testee { get; set; }
 
         [Fact]
@@ -81,6 +98,54 @@ namespace IOAbstraction.Test.Bases
             this.Testee.AutoFlush(self => self.Write(new[] { 'c', 'c' }));
 
             Assert.Equal(2, this.TestDataStream.Length);
+        }
+
+        [Fact]
+        public void WhenASubArrayOfCharBufferIsWritten_Write_MustWriteItViaUnderlyingTextWriterToStream()
+        {
+            this.Testee.AutoFlush(self => self.Write(new[] { 'c', 'c', 'c' }, 1, 2));
+
+            Assert.Equal(2, this.TestDataStream.Length);
+        }
+
+        [Fact]
+        public void WhenADecimalIsWritten_Write_MustWriteItViaUnderlyingTextWriterToStream()
+        {
+            this.Testee.AutoFlush(self => self.Write(decimal.Zero));
+
+            Assert.Equal(1, this.TestDataStream.Length);
+        }
+
+        [Fact]
+        public void WhenADoubleIsWritten_Write_MustWriteItViaUnderlyingTextWriterToStream()
+        {
+            this.Testee.AutoFlush(self => self.Write(double.Epsilon));
+
+            Assert.Equal(21, this.TestDataStream.Length);
+        }
+
+        [Fact]
+        public void WhenAFloatIsWritten_Write_MustWriteItViaUnderlyingTextWriterToStream()
+        {
+            this.Testee.AutoFlush(self => self.Write(float.Epsilon));
+
+            Assert.Equal(12, this.TestDataStream.Length);
+        }
+
+        [Fact]
+        public void WhenAIntIsWritten_Write_MustWriteItViaUnderlyingTextWriterToStream()
+        {
+            this.Testee.AutoFlush(self => self.Write(int.MaxValue));
+
+            Assert.Equal(10, this.TestDataStream.Length);
+        }
+
+        [Fact]
+        public void WhenALongIntIsWritten_Write_MustWriteItViaUnderlyingTextWriterToStream()
+        {
+            this.Testee.AutoFlush(self => self.Write(long.MaxValue));
+
+            Assert.Equal(19, this.TestDataStream.Length);
         }
 
         [Fact]
