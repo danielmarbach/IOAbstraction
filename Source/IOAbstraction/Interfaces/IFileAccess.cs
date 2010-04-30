@@ -54,6 +54,51 @@ namespace IOAbstraction.Interfaces
         void Delete(string path);
 
         /// <summary>
+        /// Copies an existing file to a new file. Overwriting a file of the same name is not allowed.
+        /// </summary>
+        /// <param name="sourceFileName">The file to copy.</param>
+        /// <param name="destFileName">The name of the destination file. This cannot be a directory or an existing file.</param>
+        /// <exception cref="UnauthorizedAccessException">The caller does not have the required permission.</exception>
+        /// <exception cref="ArgumentException"> <paramref name="sourceFileName"/> or <paramref name="destFileName"/> is a zero-length string, contains only white space, or contains one or more invalid characters as defined by System.IO.Path.InvalidPathChars.  -or- sourceFileName or destFileName specifies a directory.</exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="sourceFileName"/> or <paramref name="destFileName"/> is <see langword="null"/>.</exception>
+        /// <exception cref="PathTooLongException"> The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters.</exception>
+        /// <exception cref="System.IO.DirectoryNotFoundException"> The path specified in <paramref name="sourceFileName"/> or <paramref name="destFileName"/> is invalid (for example, it is on an unmapped drive).</exception>
+        /// <exception cref="System.IO.FileNotFoundException"> <paramref name="sourceFileName"/> was not found.</exception>
+        /// <exception cref="System.IO.IOException"> <paramref name="destFileName"/> exists.  -or- An I/O error has occurred.</exception>
+        /// <exception cref="System.NotSupportedException"><paramref name="sourceFileName"/> or <paramref name="destFileName"/> is in an invalid format.</exception>
+        void Copy(string sourceFileName, string destFileName);
+
+        /// <summary>
+        /// Copies an existing file to a new file. Overwriting a file of the same name is allowed.
+        /// </summary>
+        /// <param name="sourceFileName">The file to copy.</param>
+        /// <param name="destFileName">The name of the destination file. This cannot be a directory.</param>
+        /// <param name="overwrite"><see langword="true"/> if the destination file can be overwritten; otherwise, 
+        /// <see langword="false"/>.</param>
+        /// <exception cref="System.UnauthorizedAccessException"> The caller does not have the required permission.
+        /// </exception>
+        /// <exception cref="System.ArgumentException"> <paramref name="sourceFileName"/> or 
+        /// <paramref name="destFileName"/> is a zero-length string, contains only white space, or contains one or more
+        /// invalid characters as defined by System.IO.Path.InvalidPathChars.  -or- sourceFileName or destFileName
+        /// specifies a directory.</exception>
+        /// <exception cref="System.ArgumentNullException"> <paramref name="sourceFileName"/> or 
+        /// <paramref name="destFileName"/> is <see langword="null"/>.</exception>
+        /// <exception cref="System.IO.PathTooLongException"> The specified path, file name, or both exceed the
+        /// system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248
+        /// characters, and file names must be less than 260 characters.</exception>
+        /// <exception cref="System.IO.DirectoryNotFoundException"> The path specified in 
+        /// <paramref name="sourceFileName"/> or <paramref name="destFileName"/> is invalid (for example, it is on an
+        /// unmapped drive).</exception>
+        /// <exception cref="System.IO.FileNotFoundException"> <paramref name="sourceFileName"/> was not found.
+        /// </exception>
+        /// <exception cref="System.IO.IOException"> <paramref name="destFileName"/> is read-only, or 
+        /// <paramref name="destFileName"/> exists and overwrite is <see langword="false"/>.  -or- An I/O error has
+        /// occurred.</exception>
+        /// <exception cref="System.NotSupportedException"> <paramref name="sourceFileName"/> or 
+        /// <paramref name="destFileName"/> is in an invalid format.</exception>
+        void Copy(string sourceFileName, string destFileName, bool overwrite);
+
+        /// <summary>
         /// Creates or opens a file for writing UTF-8 encoded text.
         /// </summary>
         /// <param name="path">The file to be opened for writing.</param>

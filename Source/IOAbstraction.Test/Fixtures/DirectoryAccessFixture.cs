@@ -236,5 +236,60 @@ namespace IOAbstraction.Test.Fixtures
             this.EnsureFileExistent(existingDirectory);
             return existingDirectory;
         }
+
+        /// <summary>
+        /// Compares to files on equality.
+        /// </summary>
+        /// <param name="fileName1">The file name1.</param>
+        /// <param name="fileName2">The file name2.</param>
+        /// <returns><see langword="true"/> if the files are equal; otherwise <see langword="false"/>.</returns>
+        public bool FileEquals(string fileName1, string fileName2)
+        {
+            // Check the file size and CRC equality here.. if they are equal...    
+            using (var file1 = new FileStream(fileName1, FileMode.Open))
+            using (var file2 = new FileStream(fileName2, FileMode.Open))
+            {
+                return StreamsContentsAreEqual(file1, file2);
+            }
+        }
+
+        /// <summary>
+        /// Compares to streams for equality.
+        /// </summary>
+        /// <param name="stream1">The stream1.</param>
+        /// <param name="stream2">The stream2.</param>
+        /// <returns><see langword="true"/> if the two streams are equal; otherwise <see langword="false"/>.</returns>
+        private static bool StreamsContentsAreEqual(Stream stream1, Stream stream2)
+        {
+            const int BufferSize = 2048 * 2;
+            var buffer1 = new byte[BufferSize];
+            var buffer2 = new byte[BufferSize];
+
+            while (true)
+            {
+                int count1 = stream1.Read(buffer1, 0, BufferSize);
+                int count2 = stream2.Read(buffer2, 0, BufferSize);
+
+                if (count1 != count2)
+                {
+                    return false;
+                }
+
+                if (count1 == 0)
+                {
+                    return true;
+                }
+
+                int iterations = (int)Math.Ceiling((double)count1 / sizeof(Int64));
+                for (int i = 0; i < iterations; i++)
+                {
+                    if (BitConverter.ToInt64(buffer1, i * sizeof(Int64)) != BitConverter.ToInt64(buffer2, i * sizeof(Int64)))
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
     }
 }

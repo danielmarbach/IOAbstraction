@@ -78,6 +78,83 @@ namespace IOAbstraction.Test
         }
 
         /// <summary>
+        /// When the source file is copied into an non existing file the source file must be copied.
+        /// </summary>
+        [Fact]
+        public void WhenFileIsCopiedIntoNonExistingFile_Copy_MustCopyTheFile()
+        {
+            var testee = CreateTestee();
+
+            var sourceFile = this.Fixture.GetExistingFile();
+            var destinationFile = this.Fixture.GetNotExistingFile();
+
+            testee.Copy(sourceFile, destinationFile);
+
+            Assert.True(this.Fixture.FileEquals(sourceFile, destinationFile));
+        }
+
+        /// <summary>
+        /// When the source file is copied into an existing file an exception must be thrown.
+        /// </summary>
+        [Fact]
+        public void WhenFileIsCopiedIntoExistingFile_Copy_MustThrowException()
+        {
+            var testee = CreateTestee();
+
+            var sourceFile = this.Fixture.GetExistingFile();
+            var destinationFile = this.Fixture.GetExistingFile();
+
+            Assert.Throws<IOException>(() => testee.Copy(sourceFile, destinationFile));
+        }
+
+        /// <summary>
+        /// When the source file is copied into an existing file with overwrite set to false an exception must be
+        /// thrown.
+        /// </summary>
+        [Fact]
+        public void WhenFileIsCopiedIntoExistingFileWithOverwriteFalse_CopyOverwrite_MustThrowException()
+        {
+            var testee = CreateTestee();
+
+            var sourceFile = this.Fixture.GetExistingFile();
+            var destinationFile = this.Fixture.GetExistingFile();
+
+            Assert.Throws<IOException>(() => testee.Copy(sourceFile, destinationFile, false));
+        }
+
+        /// <summary>
+        /// When the source file is copied into an existing file with overwrite set to true the source file must be
+        /// copied.
+        /// </summary>
+        [Fact]
+        public void WhenFileIsCopiedIntoExistingFileWithOverwriteTrue_CopyOverwrite_MustNotThrowException()
+        {
+            var testee = CreateTestee();
+
+            var sourceFile = this.Fixture.GetExistingFile();
+            var destinationFile = this.Fixture.GetExistingFile();
+
+            Assert.DoesNotThrow(() => testee.Copy(sourceFile, destinationFile, true));
+            Assert.True(this.Fixture.FileEquals(sourceFile, destinationFile));
+        }
+
+        /// <summary>
+        /// When a source file is copied into a destination file which does not exist the source file must be copied.
+        /// </summary>
+        [Fact]
+        public void WhenFileIsCopiedIntoNonExistingFile_CopyOverwrite_MustCopyTheFile()
+        {
+            var testee = CreateTestee();
+
+            var sourceFile = this.Fixture.GetExistingFile();
+            var destinationFile = this.Fixture.GetNotExistingFile();
+
+            testee.Copy(sourceFile, destinationFile, false);
+
+            Assert.True(this.Fixture.FileEquals(sourceFile, destinationFile));
+        }
+
+        /// <summary>
         /// When a stream writer is requested from a given text file a stream
         /// writer decorator must be returned.
         /// </summary>
