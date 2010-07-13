@@ -18,8 +18,10 @@
 
 namespace IOAbstraction.Test
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Text;
     using Fixtures;
     using Interfaces;
     using Xunit;
@@ -171,6 +173,63 @@ namespace IOAbstraction.Test
 
                 streamWriter.Close();
             }
+        }
+
+        [Fact]
+        public void WriteAllLines_MustWriteProvidedLinesToFile()
+        {
+            var content = new List<string> { "Item1", "Item2" };
+
+            var testee = CreateTestee();
+           
+            var nonExistingFile = this.Fixture.GetNotExistingFile();
+
+            testee.WriteAllLines(nonExistingFile, content);
+
+            string actual = File.ReadAllText(nonExistingFile);
+
+            StringBuilder sb = new StringBuilder();
+            content.ForEach(line => sb.AppendLine(line));
+
+            Assert.Equal(sb.ToString(), actual);
+        }
+
+        [Fact]
+        public void WriteAllLines_WithEncoding_MustWriteProvidedLinesToFile()
+        {
+            var content = new List<string> { "Item1\u0168", "Item2\u0168" };
+
+            var testee = CreateTestee();
+
+            var nonExistingFile = this.Fixture.GetNotExistingFile();
+
+            testee.WriteAllLines(nonExistingFile, content, Encoding.Unicode);
+
+            string actual = File.ReadAllText(nonExistingFile, Encoding.Unicode);
+
+            StringBuilder sb = new StringBuilder();
+            content.ForEach(line => sb.AppendLine(line));
+
+            Assert.Equal(sb.ToString(), actual);
+        }
+
+        /// <summary>
+        /// When all text is written into a file the file must contain the written text.
+        /// </summary>
+        [Fact]
+        public void WriteAllText_MustWriteProvidedTextToFile()
+        {
+            const string TestFileContent = "TestContent";
+
+            var testee = CreateTestee();
+
+            var nonExistingFile = this.Fixture.GetNotExistingFile();
+
+            testee.WriteAllText(nonExistingFile, TestFileContent);
+
+            string actual = File.ReadAllText(nonExistingFile);
+
+            Assert.Equal(TestFileContent, actual);
         }
 
         /// <summary>

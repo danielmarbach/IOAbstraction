@@ -332,5 +332,57 @@ namespace IOAbstraction.Interfaces
         /// </exception>
         /// <exception cref="SecurityException">The caller does not have the required permission.</exception>
         string ReadAllText(string path);
+
+        /// <summary>
+        /// Creates a new file, writes the specified string array to the file using the specified encoding, and then
+        /// closes the file. If the target file already exists, it is overwritten.
+        /// </summary>
+        /// <param name="path">The file to write to.</param>
+        /// <param name="contents">The string enumerable to write to the file.</param>
+        /// <param name="encoding">An System.Text.Encoding object that represents the character encoding applied to the
+        /// string enumerable.</param>
+        /// <exception cref="System.ArgumentException"> path is a zero-length string, contains only white space, or contains one or more invalid characters as defined by System.IO.Path.InvalidPathChars.</exception>
+        /// <exception cref="System.ArgumentNullException"> path is null or contents string is empty.</exception>
+        /// <exception cref="System.IO.PathTooLongException"> The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters.</exception>
+        /// <exception cref="System.IO.DirectoryNotFoundException"> The specified path is invalid (for example, it is on an unmapped drive).</exception>
+        /// <exception cref="System.IO.IOException"> An I/O error occurred while opening the file.</exception>
+        /// <exception cref="System.UnauthorizedAccessException"> path specified a file that is read-only.  -or- This operation is not supported on the current platform.  -or- path specified a directory.  -or- The caller does not have the required permission.</exception>
+        /// <exception cref="System.IO.FileNotFoundException"> The file specified in path was not found.</exception>
+        /// <exception cref="System.NotSupportedException"> path is in an invalid format.</exception>
+        /// <exception cref="System.Security.SecurityException"> The caller does not have the required permission.</exception>
+        void WriteAllLines(string path, IEnumerable<string> contents, Encoding encoding);
+
+        /// <summary>
+        /// Creates a new file, write the specified string array to the file, and then closes the file. If the target file already exists, it is overwritten.
+        /// </summary>
+        /// <param name="path">The file to write to.</param>
+        /// <param name="contents">The string enumerable to write to the file.</param>
+        /// <exception cref="System.ArgumentException"> path is a zero-length string, contains only white space, or contains one or more invalid characters as defined by System.IO.Path.InvalidPathChars.</exception>
+        /// <exception cref="System.ArgumentNullException"> path is null or contents string is empty.</exception>
+        /// <exception cref="System.IO.PathTooLongException"> The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters.</exception>
+        /// <exception cref="System.IO.DirectoryNotFoundException"> The specified path is invalid (for example, it is on an unmapped drive).</exception>
+        /// <exception cref="System.IO.IOException"> An I/O error occurred while opening the file.</exception>
+        /// <exception cref="System.UnauthorizedAccessException"> path specified a file that is read-only.  -or- This operation is not supported on the current platform.  -or- path specified a directory.  -or- The caller does not have the required permission.</exception>
+        /// <exception cref="System.IO.FileNotFoundException"> The file specified in path was not found.</exception>
+        /// <exception cref="System.NotSupportedException"> path is in an invalid format.</exception>
+        /// <exception cref="System.Security.SecurityException"> The caller does not have the required permission.</exception>
+        void WriteAllLines(string path, IEnumerable<string> contents);
+
+        /// <summary>
+        /// Creates a new file, writes the specified string to the file, and then closes the file. If the target file
+        /// already exists, it is overwritten.
+        /// </summary>
+        /// <param name="path">The file to write to.</param>
+        /// <param name="contents">The string to write to the file.</param>
+        /// <exception cref="System.ArgumentException"> path is a zero-length string, contains only white space, or contains one or more invalid characters as defined by System.IO.Path.InvalidPathChars.</exception>
+        /// <exception cref="System.ArgumentNullException"> path is null.</exception>
+        /// <exception cref="System.IO.PathTooLongException"> The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters.</exception>
+        /// <exception cref="System.IO.DirectoryNotFoundException"> The specified path is invalid (for example, it is on an unmapped drive).</exception>
+        /// <exception cref="System.IO.IOException"> An I/O error occurred while opening the file.</exception>
+        /// <exception cref="System.UnauthorizedAccessException"> path specified a file that is read-only.  -or- This operation is not supported on the current platform.  -or- path specified a directory.  -or- The caller does not have the required permission.</exception>
+        /// <exception cref="System.IO.FileNotFoundException"> The file specified in path was not found.</exception>
+        /// <exception cref="System.NotSupportedException"> path is in an invalid format.</exception>
+        /// <exception cref="System.Security.SecurityException"> The caller does not have the required permission.</exception>
+        void WriteAllText(string path, string contents);
     }
 }
