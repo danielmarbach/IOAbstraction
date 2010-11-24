@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IOAbstraction", "IOAbstraction\IOAbstraction.csproj", "{C15A10A0-9766-4AD7-BD35-C8A483C23CAD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IOAbstraction.Test", "IOAbstraction.Test\IOAbstraction.Test.csproj", "{F4E522F8-951F-4990-B04F-C984444C748F}"
