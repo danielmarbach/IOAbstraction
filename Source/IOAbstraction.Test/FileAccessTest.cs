@@ -232,6 +232,22 @@ namespace IOAbstraction.Test
             Assert.Equal(TestFileContent, actual);
         }
 
+        [Fact]
+        public void WriteAllBytes_MustWriteProvidedBytesToFile()
+        {
+            const string TestFileContent = "TestContent";
+
+            var testee = CreateTestee();
+
+            var nonExistingFile = this.Fixture.GetNotExistingFile();
+
+            testee.WriteAllBytes(nonExistingFile, Encoding.ASCII.GetBytes(TestFileContent));
+
+            string actual = File.ReadAllText(nonExistingFile);
+
+            Assert.Equal(TestFileContent, actual);
+        }
+
         /// <summary>
         /// Creates the <see cref="IOAbstraction.FileAccess"/>.
         /// </summary>

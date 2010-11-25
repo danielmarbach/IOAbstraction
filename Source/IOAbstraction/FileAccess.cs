@@ -152,5 +152,13 @@ namespace IOAbstraction
 
             File.WriteAllText(path, contents);
         }
+
+        /// <inheritdoc />
+        public void WriteAllBytes(string path, byte[] bytes)
+        {
+            Log.DebugFormat(CultureInfo.InvariantCulture, "Writing all byte {0} to file {1}.", bytes, path);
+
+            File.WriteAllBytes(path, bytes);
+        }
     }
 }
