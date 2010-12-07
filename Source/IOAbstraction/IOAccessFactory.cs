@@ -56,6 +56,26 @@ namespace IOAbstraction
         }
 
         /// <summary>
+        /// Creates the stream reader access.
+        /// </summary>
+        /// <param name="streamReader">The stream reader.</param>
+        /// <returns>An instance implementing <see cref="IStreamReaderAccess"/>.</returns>
+        public IStreamReaderAccess CreateStreamReaderAccess(StreamReader streamReader)
+        {
+            return new StreamReaderAccess(streamReader);
+        }
+
+        /// <summary>
+        /// Creates the stream writer access.
+        /// </summary>
+        /// <param name="streamWriter">The stream writer.</param>
+        /// <returns>An instance implementing <see cref="IStreamWriterAccess"/>.</returns>
+        public IStreamWriterAccess CreateStreamWriterAccess(StreamWriter streamWriter)
+        {
+            return new StreamWriterAccess(streamWriter);
+        }
+
+        /// <summary>
         /// Creates the file info access.
         /// </summary>
         /// <param name="fileInfo">The file info.</param>

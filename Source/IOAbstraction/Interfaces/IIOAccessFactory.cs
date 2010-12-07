@@ -47,6 +47,20 @@ namespace IOAbstraction.Interfaces
         IPathAccess CreatePathAccess();
 
         /// <summary>
+        /// Creates the stream reader access.
+        /// </summary>
+        /// <param name="streamReader">The stream reader.</param>
+        /// <returns>An instance implementing <see cref="IStreamReaderAccess"/>.</returns>
+        IStreamReaderAccess CreateStreamReaderAccess(StreamReader streamReader);
+
+        /// <summary>
+        /// Creates the stream writer access.
+        /// </summary>
+        /// <param name="streamWriter">The stream writer.</param>
+        /// <returns>An instance implementing <see cref="IStreamWriterAccess"/>.</returns>
+        IStreamWriterAccess CreateStreamWriterAccess(StreamWriter streamWriter);
+
+        /// <summary>
         /// Creates the file info access.
         /// </summary>
         /// <param name="fileInfo">The file info.</param>
