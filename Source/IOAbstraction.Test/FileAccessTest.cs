@@ -18,6 +18,7 @@
 
 namespace IOAbstraction.Test
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -248,6 +249,24 @@ namespace IOAbstraction.Test
             Assert.Equal(TestFileContent, actual);
         }
 
+        [Fact]
+        public void Open_WithPathAndMode_MustOpenFile()
+        {
+            this.AssertFileOpened((testee, nonExistingFile) => testee.Open(nonExistingFile, FileMode.CreateNew));
+        }
+
+        [Fact]
+        public void Open_WithPathAndModeAndFileAccess_MustOpenFile()
+        {
+            this.AssertFileOpened((testee, nonExistingFile) => testee.Open(nonExistingFile, FileMode.CreateNew, System.IO.FileAccess.ReadWrite));
+        }
+
+        [Fact]
+        public void Open_With_MustOpenFile()
+        {
+            this.AssertFileOpened((testee, nonExistingFile) => testee.Open(nonExistingFile, FileMode.CreateNew, System.IO.FileAccess.ReadWrite, FileShare.ReadWrite));
+        }
+
         /// <summary>
         /// Creates the <see cref="IOAbstraction.FileAccess"/>.
         /// </summary>
@@ -257,6 +276,31 @@ namespace IOAbstraction.Test
             var testee = new FileAccess();
 
             return testee;
+        }
+
+        /// <summary>
+        /// Asserts that a given file path was correctly opened.
+        /// </summary>
+        /// <param name="open">The open function.</param>
+        private void AssertFileOpened(Func<IFileAccess, string, Stream> open)
+        {
+            var testee = CreateTestee();
+
+            var nonExistingFile = this.Fixture.GetNotExistingFile();
+
+            var memoryStream = new MemoryStream();
+            var expectedStream = new MemoryStream();
+
+            var stream = open(testee, nonExistingFile);
+            
+            this.Fixture.CopyStream(stream, memoryStream);
+            stream.Close();
+
+            stream = File.Open(nonExistingFile, FileMode.Open);
+            this.Fixture.CopyStream(stream, expectedStream);
+            stream.Close();
+
+            Assert.True(this.Fixture.CompareStreamContents(expectedStream, memoryStream));
         }
     }
 }

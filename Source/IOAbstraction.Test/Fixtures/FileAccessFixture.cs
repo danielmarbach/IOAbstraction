@@ -18,7 +18,9 @@
 
 namespace IOAbstraction.Test.Fixtures
 {
+    using System;
     using System.Collections.Generic;
+    using System.IO;
 
     /// <summary>
     /// Fixture class which inherits from <see cref="DirectoryAccessFixture"/>
@@ -40,5 +42,83 @@ namespace IOAbstraction.Test.Fixtures
         /// </summary>
         /// <value>The test files.</value>
         public IDictionary<string, string> TestFiles { get; private set; }
+
+        /// <summary>
+        /// Compares the contents of the streams given.
+        /// </summary>
+        /// <param name="expected">The expected.</param><param name="actual">The actual.</param><returns>
+        /// True if the stream contents are equal, else false.
+        /// </returns>
+        /// <exception cref="ArgumentException"></exception>
+        public bool CompareStreamContents(Stream expected, Stream actual)
+        {
+            if (!expected.CanRead)
+            {
+                throw new ArgumentException("Expected stream is not readable");
+            }
+
+            if (!actual.CanRead)
+            {
+                throw new ArgumentException("Actual stream is not readable");
+            }
+
+            int i = 0;
+            int j = 0;
+            while (i == j && i != -1)
+            {
+                i = expected.ReadByte();
+                j = actual.ReadByte();
+            }
+
+            return i == j;
+        }
+
+        /// <summary>
+        /// Copies the input stream to the output stream.
+        /// </summary>
+        /// <param name="input">The input stream.</param><param name="output">The output stream.</param><exception cref="ArgumentNullException"><paramref name="input" /> or <paramref name="output" /> are null.
+        /// </exception><exception cref="ArgumentException"><paramref name="input" />is not readable or <paramref name="output" /> is
+        /// not writable.</exception>
+        public void CopyStream(Stream input, Stream output)
+        {
+            // assert these are the right kind of streams
+            if (input == null)
+            {
+                throw new ArgumentNullException("input", "Input stream was null");
+            }
+
+            if (output == null)
+            {
+                throw new ArgumentNullException("output", "Output stream was null");
+            }
+
+            if (!input.CanRead)
+            {
+                throw new ArgumentException("Input stream must support CanRead");
+            }
+
+            if (!output.CanWrite)
+            {
+                throw new ArgumentException("Output stream must support CanWrite");
+            }
+
+            // skip if the input stream is empty (if seeking is supported)
+            if (input.CanSeek)
+            {
+                if (input.Length == 0)
+                {
+                    return;
+                }
+            }
+
+            // copy it
+            const int Size = 4096;
+            byte[] bytes = new byte[Size];
+            int numBytes;
+            while ((numBytes = input.Read(bytes, 0, Size)) > 0)
+            {
+                output.Write(bytes, 0, numBytes);
+            }
+        }
     }
 }

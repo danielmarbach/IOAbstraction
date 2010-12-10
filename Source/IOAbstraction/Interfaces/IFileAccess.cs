@@ -344,5 +344,14 @@ namespace IOAbstraction.Interfaces
 
         /// <include file='../mscorlib.xml' path='/doc/members/member[@name="M:System.IO.File.WriteAllText(System.String,System.Byte[])"]/*' />
         void WriteAllBytes(string path, byte[] bytes);
+
+        /// <include file='../mscorlib.xml' path='/doc/members/member[@name="M:System.IO.File.Open(System.String,System.IO.FileMode)"]/*' />
+        Stream Open(string path, FileMode mode);
+
+        /// <include file='../mscorlib.xml' path='/doc/members/member[@name="M:System.IO.File.Open(System.String,System.IO.FileMode,System.IO.FileAccess)"]/*' />
+        Stream Open(string path, FileMode mode, FileAccess access);
+
+        /// <include file='../mscorlib.xml' path='/doc/members/member[@name="M:System.IO.File.Open(System.String,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare)"]/*' />
+        Stream Open(string path, FileMode mode, FileAccess access, FileShare share);
     }
 }

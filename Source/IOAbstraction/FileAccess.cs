@@ -160,5 +160,29 @@ namespace IOAbstraction
 
             File.WriteAllBytes(path, bytes);
         }
+
+        /// <inheritdoc />
+        public Stream Open(string path, FileMode mode)
+        {
+            Log.DebugFormat(CultureInfo.InvariantCulture, "Opening file {0} with mode {1}.", path, mode);
+
+            return File.Open(path, mode);
+        }
+
+        /// <inheritdoc />
+        public Stream Open(string path, FileMode mode, System.IO.FileAccess access)
+        {
+            Log.DebugFormat(CultureInfo.InvariantCulture, "Opening file {0} with mode {1} and access {2}.", path, mode, access);
+
+            return File.Open(path, mode, access);
+        }
+
+        /// <inheritdoc />
+        public Stream Open(string path, FileMode mode, System.IO.FileAccess access, FileShare share)
+        {
+            Log.DebugFormat(CultureInfo.InvariantCulture, "Opening file {0} with mode {1}, access {2} and share {3}.", path, mode, access, share);
+
+            return File.Open(path, mode, access, share);
+        }
     }
 }

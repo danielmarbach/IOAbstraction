@@ -6,8 +6,8 @@ properties {
   $build_dir = "$base_dir\build" 
   $buildartifacts_dir = "$build_dir\" 
   $sln_file = "$source_dir\IOAbstraction.sln" 
-  $version = "0.2.3.1"
-  $humanReadableversion = "0.2"
+  $version = "0.2.3.2"
+  $humanReadableversion = $version
   $tools_dir = "$base_dir\Tools\"
   $release_dir = "$base_dir\Release"
   $xunit_dir = "$tools_dir\xUnit\"
